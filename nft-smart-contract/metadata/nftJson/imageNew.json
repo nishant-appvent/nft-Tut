@@ -1,0 +1,10 @@
+{
+    "name":"API Crypto",
+    "description":"Signature",
+    "image":"https://ipfs.io/ipfs/QmWbTK92PYmRpnredwbMmEpJt1rfXC4sTGWEJyQzzGefmW",
+    "attributes":[{
+        "trait_type":"Desc",
+        "value":"API Sign"
+    }
+]
+}

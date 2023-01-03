@@ -1,0 +1,15 @@
+{
+    "name":"Batman NFT - 4",
+    "description":"The Greatest Detective",
+    "image":"https://ipfs.io/ipfs/QmcVqALjBNuD2Ak46rscaJdRi3ZvifyKkeoQkJvv9c2S6T",
+    "attributes":[
+        {
+        "trait_type":"Knight",
+        "value":4
+    },
+    {
+        "trait_type":"Vengeance",
+        "value":4
+    }
+]
+}

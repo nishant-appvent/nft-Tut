@@ -1,0 +1,13 @@
+{
+    "name":"Desmond Crypto",
+    "description":"Creed",
+    "image":"https://ipfs.io/ipfs/QmYUvkm643kyBx6e66QD2uqVqRMqkwsQqhFZ1s7xSmXJCH",
+    "attributes":[{
+        "trait_type":"Skill",
+        "value":"Parkour"
+    },{
+        "trait_type":"Status",
+        "value":"Lethal"
+    }
+]
+}
