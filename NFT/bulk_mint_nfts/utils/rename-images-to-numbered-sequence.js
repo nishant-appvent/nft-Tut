@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const imagesDirName = 'images';
+const imagesDirName = 'batmanImages';
 
 function getAllFileNames(dir) {
     let fileNames = [];

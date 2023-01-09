@@ -1,5 +1,15 @@
 {
-    "name": "Bulk minted  #1",
-    "description": "This is the general description for bulk minting the nfts",
-    "image": "ipfs://QmVDmhVh3rV5v1yifcnWgmQ15zhePwZi74CzodEHBFWNWT/1.jpeg"
+    "name": "Batman - 2",
+    "description": "Batman description - 2",
+    "image": "ipfs://QmZkKNoFLEaFjWX2W5UJgAyNB4VHGKbG8nQiNXq6SqWEEv/1.jpg",
+    "attributes":[
+        {
+        "trait_type":"Knight",
+        "value":2
+    },
+    {
+        "trait_type":"Vengeance",
+        "value":2
+    }
+]
 }

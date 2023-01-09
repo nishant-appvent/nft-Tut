@@ -15,11 +15,10 @@ async function main() {
         const rec = JSON.stringify(mintingFinalRes.events[0].args);
         const rec2 = JSON.stringify(mintingFinalRes.events[0].args[2].toNumber());
         console.log(rec,"----->", rec2);
-    }  
+    }
   } catch (error) {
     console.log(`Error: ${err.message}`);
   }
-
 }
 
 main().catch((error) => {

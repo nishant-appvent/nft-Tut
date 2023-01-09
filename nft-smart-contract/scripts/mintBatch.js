@@ -1,6 +1,7 @@
 const { ethers } = require("hardhat");
 const nftContractJSON = require("../artifacts/contracts/nftContract.sol/nftContract.json");
 require("dotenv").config();
+const fs = require('fs');
 
 
 async function main() {
@@ -10,12 +11,15 @@ async function main() {
     const signer = wallet.connect(provider);
     const nftContract = new ethers.Contract("0x893f48d252Fe47A461b196aBb5C6156AfbCDFF39",abi,signer);
     const arr = ["QmNvc5EADNm94CctNBWAARejJ6jL2daYoRdXmGftun1CBu","QmPX21oRAGbiTajBjeUYGne28ZcTT2s7CGvnniGgLDrGrQ","QmP7B1Yqe8gDCjKWC4VDAmLnxXVDHDk5TQjDBPdhfzEkd8"];
+    
     const promiseArr = [];
     for(let i=0;i<arr.length;i++){
       const firstRes = await nftContract.mint(arr[i]);
       console.log("NFT sent for Minting---------->",firstRes);
-      promiseArr.push(firstRes.wait());
+      // promiseArr.push(firstRes.wait());
     }
+    
+fs.writeFileSync('environment/deployAddress.txt',"nayi file");
     Promise.all(promiseArr).then((values)=>{
     for(let i =0;i<values.length;i++){
       const rec = JSON.stringify(values[i].events[0].args);

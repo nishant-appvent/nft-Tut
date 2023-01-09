@@ -1,0 +1,15 @@
+{
+    "name":"nft",
+    "description":"last",
+    "image":"https://ipfs.io/ipfs/QmNq2gSxGqput8NKscHzkNjAEZHDo4wB39FoCHn9rbbNba",
+    "attributes":[
+        {
+        "trait_type":"random",
+        "value":3
+    },
+    {
+        "trait_type":"Wilson fisk",
+        "value":3
+    }
+]
+}
