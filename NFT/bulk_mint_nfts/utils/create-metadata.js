@@ -98,7 +98,8 @@ function createMetadataFile(metadata, hexString) {
 }
 
 function toPaddedHexString(num, len) {
-    return num.toString(16).padStart(len, '0');
+    console.log("=========",parseInt(num).toString(16));
+    return parseInt(num).toString(16).padStart(len, '0');
 }
 
 function createDirIfNotExists(dir) {
