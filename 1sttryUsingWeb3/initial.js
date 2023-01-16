@@ -36,6 +36,7 @@ const deploy = async () => {
     const ABI = output.contracts["initial.sol"]["initial"].abi;
     const bytecode =
         output.contracts["initial.sol"]["initial"].evm.bytecode.object;
+    console.log(ABI);
     const accountFrom = {
         privateKey:
             "7c8c6a789a36232bc1912db96dabd96ab55d0a798e0824c6cc9a7f7de4bc2e68",
@@ -43,22 +44,22 @@ const deploy = async () => {
     };
     console.log(`Attempting to deploy from account ${accountFrom.address}`);
 
-    const incrementer = new web3.eth.Contract(ABI);
-    const incrementerTx = incrementer.deploy({
-        data: bytecode,
-        // arguments: [5],
-    });
-    const createTransaction = await web3.eth.accounts.signTransaction(
-        {
-            data: incrementerTx.encodeABI(),
-            gas: await incrementerTx.estimateGas(),
-        },
-        accountFrom.privateKey
-    );
-    const createReceipt = await web3.eth.sendSignedTransaction(
-        createTransaction.rawTransaction
-    );
-    console.log(`Contract deployed at address: ${createReceipt.contractAddress}`);
+    // const incrementer = new web3.eth.Contract(ABI);
+    // const incrementerTx = incrementer.deploy({
+    //     data: bytecode,
+    //     // arguments: [5],
+    // });
+    // const createTransaction = await web3.eth.accounts.signTransaction(
+    //     {
+    //         data: incrementerTx.encodeABI(),
+    //         gas: await incrementerTx.estimateGas(),
+    //     },
+    //     accountFrom.privateKey
+    // );
+    // const createReceipt = await web3.eth.sendSignedTransaction(
+    //     createTransaction.rawTransaction
+    // );
+    // console.log(`Contract deployed at address: ${createReceipt.contractAddress}`);
 };
 
 deploy();
