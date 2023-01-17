@@ -1,69 +1,49 @@
+require("dotenv").config();
 // solc compiler
 const solc = require("solc");
 // file reader
 const fs = require("fs");
 // Creation of Web3 class
 const Web3 = require("web3");
-const output = require("./helper").instantiateContract("./nftContract.sol");
 
+const output = require('./bin/nftContract.json');
 const deploy = async () => {
     const web3 = new Web3(
         new Web3.providers.HttpProvider(
-            "https://eth-goerli.g.alchemy.com/v2/g1zUBS5oj7TSScOvIoXtJ3bIa5DqFUhH"
+            "https://eth-goerli.g.alchemy.com/v2/rF7N_UT4-zBO3a41Y3Gxa5wM-DvUON0L"
         )
     );
 
-    // Reading the file
-    // console.log("fdsaa");
-    // const file = fs.readFileSync("nftContract.sol").toString();
-    
-    // let input = {
-    //     language: "Solidity",
-    //     sources: {
-    //         "nftContract.sol": {
-    //             content: file,
-    //         },
-    //     },
-    //     settings: {
-    //         outputSelection: {
-    //             "*": {
-    //                 "*": ["*"],
-    //             },
-    //         },
-    //     },
-    // };
-    // console.log(input);
-    // const output = JSON.parse(solc.compile(JSON.stringify(input)));
-    // console.log(output);
-
     const ABI = output.abi;
     const bytecode = output.bytecode;
-    console.log(ABI)
-    // const bytecode =
-    //     output.contracts["nftContract.sol"]["nftContract"].evm.bytecode.object;
     const accountFrom = {
-        privateKey:
-      "7c8c6a789a36232bc1912db96dabd96ab55d0a798e0824c6cc9a7f7de4bc2e68",
-        address: "0x3a0d68D484E77664C5507E7E1c46D090F25930Bf",
+        privateKey:process.env.PRIVATE_KEY,
+        address: "0x487104772569AaD8d2443E39ED09Dd5235505Cf8",
     };
     console.log(`Attempting to deploy from account ${accountFrom.address}`);
-
     const incrementer = new web3.eth.Contract(ABI);
     const incrementerTx = incrementer.deploy({
         data: bytecode,
-        arguments: ['Using-Web3',"w3"],
+        // arguments: [accountFrom.address,'ERC1155UsingWeb3',"ipfs://QmShBNMnspk8CyDqJ2wvNMMUZtLDbabFy74EzePCo847u1/{id}.json",[6,7,8,9,10,11,13],[1,1,1,1,1,1,1]],
+        // arguments: [accountFrom.address,"QmNvc5EADNm94CctNBWAARejJ6jL2daYoRdXmGftun1CBu","dfajsk","2"],
     });
+    console.log(await incrementerTx.estimateGas());
     const createTransaction = await web3.eth.accounts.signTransaction(
         {
             data: incrementerTx.encodeABI(),
-            gas: await incrementerTx.estimateGas(),
+            gas: 2000000,
+            maxPriorityFeePerGas: 1999999987,
         },
         accountFrom.privateKey
     );
     const createReceipt = await web3.eth.sendSignedTransaction(
         createTransaction.rawTransaction
-    );
-    console.log(`Contract deployed at address: ${createReceipt.contractAddress}`);
+    ).on("receipt",(receipt)=>{
+        console.log(receipt.contractAddress,"hvhhvjhvjhvjhvjh");
+        console.log(receipt);
+    });
+    console.log("dfaskdsaafdd");
+
 };
 
 deploy();

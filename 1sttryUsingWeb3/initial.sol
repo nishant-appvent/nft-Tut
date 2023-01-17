@@ -6,7 +6,7 @@ contract initial{
     string public message;
  
     constructor(){
-        message="Hello World";
+        message="asjdfkajskdfjkasdflkjasdfhkjasbfajksdhfjkasdhf";
     }
  
     function setMessage(string memory _newMessage) public{

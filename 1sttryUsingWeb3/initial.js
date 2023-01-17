@@ -1,3 +1,4 @@
+require("dotenv").config();
 // solc compiler
 const solc = require("solc");
 // file reader
@@ -36,30 +37,32 @@ const deploy = async () => {
     const ABI = output.contracts["initial.sol"]["initial"].abi;
     const bytecode =
         output.contracts["initial.sol"]["initial"].evm.bytecode.object;
-    console.log(ABI);
+    console.log(ABI)
     const accountFrom = {
-        privateKey:
-            "7c8c6a789a36232bc1912db96dabd96ab55d0a798e0824c6cc9a7f7de4bc2e68",
-        address: "0x3a0d68D484E77664C5507E7E1c46D090F25930Bf",
+        privateKey:process.env.PRIVATE_KEY,
+        address: "0x487104772569AaD8d2443E39ED09Dd5235505Cf8",
     };
     console.log(`Attempting to deploy from account ${accountFrom.address}`);
 
-    // const incrementer = new web3.eth.Contract(ABI);
-    // const incrementerTx = incrementer.deploy({
-    //     data: bytecode,
-    //     // arguments: [5],
-    // });
-    // const createTransaction = await web3.eth.accounts.signTransaction(
-    //     {
-    //         data: incrementerTx.encodeABI(),
-    //         gas: await incrementerTx.estimateGas(),
-    //     },
-    //     accountFrom.privateKey
-    // );
-    // const createReceipt = await web3.eth.sendSignedTransaction(
-    //     createTransaction.rawTransaction
-    // );
-    // console.log(`Contract deployed at address: ${createReceipt.contractAddress}`);
+    const incrementer = new web3.eth.Contract(ABI);
+    const incrementerTx = incrementer.deploy({
+        data: bytecode,
+    });
+    const createTransaction = await web3.eth.accounts.signTransaction(
+        {
+            data: incrementerTx.encodeABI(),
+            gas: await incrementerTx.estimateGas(),
+        },
+        accountFrom.privateKey
+    );
+    const createReceipt = await web3.eth.sendSignedTransaction(
+        createTransaction.rawTransaction
+    ).on("receipt",(receipt)=>{
+        console.log(receipt.contractAddress,"fdaslkfdlkasd");
+    })
+    console.log(incrementerTx);
+    
+    
 };
 
 deploy();

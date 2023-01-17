@@ -1,25 +1,30 @@
-// contracts/CryptoBeetles.sol
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.7.0 <0.9.0;
+pragma solidity >=0.4.22 <0.9.0;
 
-import "./node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "./node_modules/@openzeppelin/contracts/utils/Counters.sol";
+import '@openzeppelin/contracts/token/ERC1155/ERC1155.sol';
+import '@openzeppelin/contracts/access/Ownable.sol';
 
+contract nftContract is Ownable, ERC1155 {
+    // Base URI
+    string private baseURI;
+    string public name;
 
-
-contract nftContract is ERC721URIStorage {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
-
-    constructor(string memory _name, string memory _symbol) ERC721(_name, _symbol) {}
-
-    function mint(string memory tokenURI) public returns (uint256)
+    constructor()
+        ERC1155(
+            'ipfs://QmWQud9NzmDM7YHrZ8XET1u8cjz5gtzUX9CPhGnYM5wFSs/{id}.json'
+        )
     {
-        uint256 newItemId = _tokenIds.current();
-        _mint(msg.sender, newItemId);
-        _setTokenURI(newItemId, tokenURI);
+        name='Appvent Bulk Deploy Collection';
+    }
+    
+    function setURI(string memory _newuri) public onlyOwner {
+        _setURI(_newuri);
+    }
 
-        _tokenIds.increment();
-        return newItemId;
+    function mintBatch(uint256[] memory ids, uint256[] memory amounts)
+        public
+        onlyOwner
+    {
+        _mintBatch(0x487104772569AaD8d2443E39ED09Dd5235505Cf8, ids, amounts, '');
     }
 }
