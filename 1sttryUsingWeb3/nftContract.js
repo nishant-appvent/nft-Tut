@@ -7,6 +7,7 @@ const fs = require("fs");
 const Web3 = require("web3");
 
 const output = require('./bin/nftContract.json');
+
 const deploy = async () => {
     const web3 = new Web3(
         new Web3.providers.HttpProvider(
