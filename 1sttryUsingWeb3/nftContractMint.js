@@ -25,22 +25,21 @@ const mint = async () => {
     };
     console.log(`Attempting to deploy from account ${accountFrom.address}`);
     const contractInstance = new web3.eth.Contract(ABI,CONTRACT_ADDRESS);
-    console.log(contractInstance);
+    // console.log(contractInstance);
 
     const tx = {
         from:accountFrom.address,
         to:CONTRACT_ADDRESS,
-        gas:500000, 
+        gas:3000000, 
         maxPriorityFeePerGas: 1999999987,
-        data:contractInstance.methods.mintBatch([1,2,3,4,5],[1,1,1,1,1]).encodeABI()
+        data:contractInstance.methods.mintBatch([6,7,8,9,10],[0,0,0,0,0]).encodeABI()
     }
 
-    const signPromise = web3.eth.accounts.signTransaction(tx,accountFrom.privateKey);
-    
-    signPromise
-    .then((signedTx) => {
-      web3.eth.sendSignedTransaction(
-        signedTx.rawTransaction,
+    const signTx = await web3.eth.accounts.signTransaction(tx,accountFrom.privateKey);
+
+    let value;
+    const resultData = await web3.eth.sendSignedTransaction(
+        signTx.rawTransaction,
         function (err, hash) {
           if (!err) {
             console.log(
@@ -55,13 +54,13 @@ const mint = async () => {
             );
           }
         }
-      );
-    })
-    .catch((err) => {
-      console.log("Promise failed:", err);
-    });
-
-
+      ).on("receipt",(data)=>{
+        console.log("++++++++++",JSON.stringify(data.logs[0].topics));
+     
+      });
+      let events = await contractInstance.getPastEvents("TransferBatch"); 
+      console.log(JSON.stringify(events[0].returnValues[3]));
+   
 };
 
 

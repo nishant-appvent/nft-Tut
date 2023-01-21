@@ -25,26 +25,24 @@ const deploy = async () => {
     const incrementer = new web3.eth.Contract(ABI);
     const incrementerTx = incrementer.deploy({
         data: bytecode,
+        // from:accountFrom.address,
         // arguments: [accountFrom.address,'ERC1155UsingWeb3',"ipfs://QmShBNMnspk8CyDqJ2wvNMMUZtLDbabFy74EzePCo847u1/{id}.json",[6,7,8,9,10,11,13],[1,1,1,1,1,1,1]],
         // arguments: [accountFrom.address,"QmNvc5EADNm94CctNBWAARejJ6jL2daYoRdXmGftun1CBu","dfajsk","2"],
     });
     console.log(await incrementerTx.estimateGas());
     const createTransaction = await web3.eth.accounts.signTransaction(
-        {
+        {   
+            from:accountFrom.address,
             data: incrementerTx.encodeABI(),
             gas: 2000000,
             maxPriorityFeePerGas: 1999999987,
         },
         accountFrom.privateKey
     );
-    const createReceipt = await web3.eth.sendSignedTransaction(
+    const receipt = await web3.eth.sendSignedTransaction(
         createTransaction.rawTransaction
-    ).on("receipt",(receipt)=>{
-        console.log(receipt.contractAddress,"hvhhvjhvjhvjhvjh");
-        console.log(receipt);
-    });
-    console.log("dfaskdsaafdd");
-
+    );
+    console.log(receipt);
 };
 
 deploy();
