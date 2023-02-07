@@ -6,11 +6,12 @@ const ethers = require("ethers");
 
 
 const deploy = async function () {
+    let contractInstance;
     try {
         const provider = new ethers.providers.AlchemyProvider("goerli", "rF7N_UT4-zBO3a41Y3Gxa5wM-DvUON0L");
         const Wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
         const ContractInstance = new ethers.ContractFactory(ABI, bytecode, Wallet);
-        const contractInstance = await ContractInstance.deploy("UsingEthers", "ipfs://QmShBNMnspk8CyDqJ2wvNMMUZtLDbabFy74EzePCo847u1/{id}.json");
+        contractInstance = await ContractInstance.deploy("UsingEthers", "ipfs://QmShBNMnspk8CyDqJ2wvNMMUZtLDbabFy74EzePCo847u1/{id}.json");
         await contractInstance.deployed();
         console.log(contractInstance.address);
     } catch (err) {
@@ -32,9 +33,11 @@ const deploy = async function () {
         console.log(responseObj);
     } catch (error) {
         console.log("Error in minting");
-        console.log(err);
+        console.log(error);
     }
 }
-deploy();
+// deploy();
 
+const provider = new ethers.providers.AlchemyProvider("goerli", "rF7N_UT4-zBO3a41Y3Gxa5wM-DvUON0L");
 
+console.log(provider)
